@@ -1,0 +1,35 @@
+.month-days-wrapper {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 1px;
+}
+
+.month-day {
+  position: relative;
+  width: 74px;
+  height: 70px;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: rgba(20, 30, 18, 0.2);
+  background: #f8faf8;
+}
+
+.month-day::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border: 1px solid #dcdfdc;
+}
+
+.month-day p {
+  margin: 14px;
+}
+
+.same-month {
+  color: #141e12;
+  background: transparent;
+}

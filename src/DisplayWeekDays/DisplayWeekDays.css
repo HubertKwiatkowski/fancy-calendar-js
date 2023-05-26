@@ -1,0 +1,12 @@
+.week-days-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.week-day {
+  margin-left: 14px;
+  width: 74px;
+}

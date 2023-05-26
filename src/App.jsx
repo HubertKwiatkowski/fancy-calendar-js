@@ -1,7 +1,19 @@
 import "./App.css";
-import { format, startOfToday, parse, add } from "date-fns";
+import {
+  format,
+  startOfToday,
+  parse,
+  add,
+  eachDayOfInterval,
+  startOfMonth,
+  endOfMonth,
+  endOfWeek,
+  startOfWeek,
+} from "date-fns";
 import { ArrowLeft, ArrowRight } from "./icons/index.js";
 import { useState } from "react";
+import { DisplayWeekDays } from "./DisplayWeekDays/DisplayWeekDays.jsx";
+import { DisplayMonthDays } from "./DisplayMonthDays/DisplayMonthDays.jsx";
 
 function App() {
   let today = startOfToday();
@@ -17,6 +29,17 @@ function App() {
   const nextMonth = () => {
     setCurrentMonth(format(firstDayNextMonth, "MMMM-yyyy"));
   };
+
+  const days = eachDayOfInterval({
+    start: startOfWeek(startOfMonth(firstDayCurrentMonth), {
+      weekStartsOn: 1,
+      weekEndsOn: 0,
+    }),
+    end: endOfWeek(endOfMonth(firstDayCurrentMonth), {
+      weekStartsOn: 1,
+      weekEndsOn: 0,
+    }),
+  });
 
   return (
     <div className="App">
@@ -43,8 +66,17 @@ function App() {
               <ArrowRight />
             </div>
           </div>
-          <div className="calendar-week-days"></div>
-          <div className="calendar-month-days"></div>
+
+          <div className="calendar-week-days">
+            <DisplayWeekDays />
+          </div>
+
+          <div className="calendar-month-days">
+            <DisplayMonthDays
+              monthDays={days}
+              today={today}
+            />
+          </div>
         </div>
       </div>
     </div>
