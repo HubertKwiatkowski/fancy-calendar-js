@@ -11,12 +11,12 @@ function App() {
   let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
 
   const prevMonth = () => {
-    setCurrentMonth(format(firstDayPrevMonth, "MMMM-yyyy"))
-  }
+    setCurrentMonth(format(firstDayPrevMonth, "MMMM-yyyy"));
+  };
 
   const nextMonth = () => {
-    setCurrentMonth(format(firstDayNextMonth, "MMMM-yyyy"))
-  }
+    setCurrentMonth(format(firstDayNextMonth, "MMMM-yyyy"));
+  };
 
   return (
     <div className="App">
@@ -35,7 +35,9 @@ function App() {
               <ArrowLeft />
               {format(firstDayPrevMonth, "MMMM")}
             </div>
-            <div className="current-month">{format(firstDayCurrentMonth, "MMMM yyyy")}</div>
+            <div className="current-month">
+              {format(firstDayCurrentMonth, "MMMM yyyy")}
+            </div>
             <div className="next" onClick={nextMonth}>
               {format(firstDayNextMonth, "MMMM")}
               <ArrowRight />
