@@ -1,6 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap");
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  height: 100vh;
+  font-family: "Lexend", sans-serif;
+  color: #141e12;
+  font-weight: 500;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  height: 100%;
+}
+
+.select-date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px 40px 15px 40px;
+}
+
+.select {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  letter-spacing: -0.01em;
+}
+
+.select div {
+  width: 34px;
+  height: 0;
+  border: 2px solid #141e12;
+}
+
+.date {
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  background: #fcfdfc;
+  padding: 20px 40px;
+  box-shadow: 0 5px 15px rgba(129, 135, 128, 0.25);
+}
+
+.calendar {
+  background: #ecefec;
+  width: 620px;
+  height: 100%;
+}
+
+.calendar-card {
+  display: flex;
+  flex-direction: column;
+  background: #fcfdfc;
+  border: 1px solid #ecefec;
+  border-radius: 2px;
+  margin-inline: 4px;
+  padding: 50px;
+}
+
+.calendar-months {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prev,
+.next {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.current-month {
+  font-size: 18px;
 }
