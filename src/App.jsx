@@ -9,6 +9,8 @@ import {
   endOfMonth,
   endOfWeek,
   startOfWeek,
+  min,
+  max,
 } from "date-fns";
 import { ArrowLeft, ArrowRight } from "./icons/index.js";
 import { useState } from "react";
@@ -42,7 +44,14 @@ function App() {
 
   let dateDisplay = "Pick date(s)";
   if (selectedDay) {
-    dateDisplay = format(selectedDay, "MMM-dd");
+    if (selectedDay.length === 1) {
+      dateDisplay = format(selectedDay[0], "MMM-dd");
+    } else {
+      const startDate = min(selectedDay);
+      const endDate = max(selectedDay);
+      dateDisplay =
+        format(startDate, "MMM-dd") + " - " + format(endDate, "MMM-dd");
+    }
   }
 
   return (
@@ -77,9 +86,9 @@ function App() {
 
           <div className="calendar-month-days">
             <DisplayMonthDays
-              setSelectedDay={setSelectedDay}
               monthDays={days}
               today={today}
+              setSelectedDay={setSelectedDay}
             />
           </div>
         </div>
