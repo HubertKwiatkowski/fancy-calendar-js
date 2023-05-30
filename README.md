@@ -17,3 +17,7 @@
 - It should be able to browse between months
 - It should be able to select day in the calendar
 - It should be able to select dates range
+
+### Deploy
+
+Working app can be found here: https://fancy-calendar-lw9j0ez2s-hubertkwiatkowski.vercel.app/
