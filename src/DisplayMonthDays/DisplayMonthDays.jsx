@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./DisplayMonthDays.css";
-import { format, getDay, isSameDay, isSameMonth } from "date-fns";
+import {format, getDay, isAfter, isBefore, isEqual, isSameDay, isSameMonth} from "date-fns";
 import classNames from "classnames";
 
 export const DisplayMonthDays = ({
@@ -11,6 +11,10 @@ export const DisplayMonthDays = ({
   const [selectedDay, setSelectedDay] = useState(null);
 
   const handleDayClick = (day) => {
+    if (isBefore(day, today)) {
+      return;
+    }
+
     if (selectedDay !== null && isSameDay(selectedDay, day)) {
       setSelectedDay(null);
       setDay(null);
@@ -18,6 +22,7 @@ export const DisplayMonthDays = ({
       setSelectedDay(day);
       setDay(day);
     }
+
   };
 
   return (
