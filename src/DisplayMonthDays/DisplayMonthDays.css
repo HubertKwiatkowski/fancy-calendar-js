@@ -33,3 +33,13 @@
   color: #141e12;
   background: transparent;
 }
+
+.selected p,
+.month-day:hover p {
+  background: #141e12;
+  color: white;
+  width: 46px;
+  height: 42px;
+  margin: 3px;
+  padding: 11px;
+}

@@ -16,6 +16,7 @@ import { DisplayWeekDays } from "./DisplayWeekDays/DisplayWeekDays.jsx";
 import { DisplayMonthDays } from "./DisplayMonthDays/DisplayMonthDays.jsx";
 
 function App() {
+  const [selectedDay, setSelectedDay] = useState(null);
   let today = startOfToday();
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMMM-yyyy"));
   let firstDayCurrentMonth = parse(currentMonth, "MMMM-yyyy", new Date());
@@ -33,13 +34,16 @@ function App() {
   const days = eachDayOfInterval({
     start: startOfWeek(startOfMonth(firstDayCurrentMonth), {
       weekStartsOn: 1,
-      weekEndsOn: 0,
     }),
     end: endOfWeek(endOfMonth(firstDayCurrentMonth), {
       weekStartsOn: 1,
-      weekEndsOn: 0,
     }),
   });
+
+  let dateDisplay = "Pick date(s)";
+  if (selectedDay) {
+    dateDisplay = format(selectedDay, "MMM-dd");
+  }
 
   return (
     <div className="App">
@@ -49,7 +53,7 @@ function App() {
             <p>Select date</p>
             <div></div>
           </div>
-          <div className="date">Pick date(s)</div>
+          <div className="date">{dateDisplay}</div>
         </div>
 
         <div className="calendar-card">
@@ -73,6 +77,7 @@ function App() {
 
           <div className="calendar-month-days">
             <DisplayMonthDays
+              setSelectedDay={setSelectedDay}
               monthDays={days}
               today={today}
             />
