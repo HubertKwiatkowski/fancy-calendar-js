@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import "./DisplayMonthDays.css";
-import { format, getDay, isSameDay, isSameMonth } from "date-fns";
+import {
+  format,
+  getDay,
+  isAfter,
+  isBefore,
+  isSameDay,
+  isSameMonth,
+  max,
+  min,
+} from "date-fns";
 import classNames from "classnames";
 
 export const DisplayMonthDays = ({
@@ -8,15 +17,25 @@ export const DisplayMonthDays = ({
   today,
   setSelectedDay: setDay,
 }) => {
-  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [isInTimeFrame, setIsInTimeFrame] = useState(false);
 
   const handleDayClick = (day) => {
-    if (selectedDay !== null && isSameDay(selectedDay, day)) {
-      setSelectedDay(null);
-      setDay(null);
+    if (selectedDays.length === 2) {
+      setSelectedDays([]);
+      return;
+    }
+    if (isBefore(day, today)) {
+      return;
+    }
+    if (selectedDays.some((selected) => isSameDay(selected, day))) {
+      setSelectedDays(
+        selectedDays.filter((selected) => !isSameDay(selected, day))
+      );
+      setDay(selectedDays);
     } else {
-      setSelectedDay(day);
-      setDay(day);
+      setSelectedDays([...selectedDays, day]);
+      setDay([...selectedDays, day]);
     }
   };
 
@@ -25,7 +44,16 @@ export const DisplayMonthDays = ({
       {monthDays.map((day, index) => {
         const isSameActiveMonth = isSameMonth(day, today);
         const gridColumnStart = getDay(day);
-        const isSelected = isSameDay(selectedDay, day);
+        const isEndPoint = selectedDays.some((endPoint) =>
+          isSameDay(endPoint, day)
+        );
+        let isInRange = false;
+
+        if (selectedDays.length === 2) {
+          const startDate = min(selectedDays);
+          const endDate = max(selectedDays);
+          isInRange = isAfter(day, startDate) && isBefore(day, endDate);
+        }
 
         return (
           <div
@@ -33,12 +61,14 @@ export const DisplayMonthDays = ({
             className={classNames(
               "month-day",
               { "same-month": isSameActiveMonth },
-              { selected: isSelected }
+              { endPoint: isEndPoint }
             )}
             style={{ gridColumnStart }}
             onClick={() => handleDayClick(day)}
           >
-            <p>{format(day, "d")}</p>
+            <div className={classNames({ isInRange: isInRange })}>
+              <p>{format(day, "d")}</p>
+            </div>
           </div>
         );
       })}

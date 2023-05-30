@@ -34,12 +34,35 @@
   background: transparent;
 }
 
-.selected p,
+.month-days-wrapper p {
+  width: 46px;
+  height: 42px;
+  margin: 3px;
+  padding: 11px;
+}
+
+.endPoint p,
 .month-day:hover p {
   background: #141e12;
   color: white;
   width: 46px;
   height: 42px;
-  margin: 3px;
   padding: 11px;
+}
+
+.isInRange {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #f8faf8,
+    #f8faf8 1px,
+    #dcdfdc 1px,
+    #dcdfdc 9px
+  );
+  width: 68px;
+  height: 64px;
+  margin: 3px;
+}
+
+.isInRange p {
+  margin-left: 0;
 }
