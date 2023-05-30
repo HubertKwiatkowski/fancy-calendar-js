@@ -42,7 +42,7 @@
 }
 
 .endPoint p,
-.month-day:hover p {
+.isPickable:hover p {
   background: #141e12;
   color: white;
   width: 46px;

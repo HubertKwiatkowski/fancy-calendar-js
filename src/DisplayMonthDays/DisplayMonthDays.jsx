@@ -5,6 +5,7 @@ import {
   getDay,
   isAfter,
   isBefore,
+  isEqual,
   isSameDay,
   isSameMonth,
   max,
@@ -42,7 +43,10 @@ export const DisplayMonthDays = ({
   return (
     <div className="month-days-wrapper">
       {monthDays.map((day, index) => {
-        const isSameActiveMonth = isSameMonth(day, today);
+        const isSameActiveMonth =
+          isSameMonth(day, today) &&
+          (isEqual(day, today) || isAfter(day, today));
+        const isPickable = isEqual(day, today) || isAfter(day, today);
         const gridColumnStart = getDay(day);
         const isEndPoint = selectedDays.some((endPoint) =>
           isSameDay(endPoint, day)
@@ -61,7 +65,8 @@ export const DisplayMonthDays = ({
             className={classNames(
               "month-day",
               { "same-month": isSameActiveMonth },
-              { endPoint: isEndPoint }
+              { endPoint: isEndPoint },
+              { isPickable: isPickable }
             )}
             style={{ gridColumnStart }}
             onClick={() => handleDayClick(day)}
