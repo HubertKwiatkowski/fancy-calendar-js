@@ -1,29 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DisplayMonthDays.css";
-import {format, getDay, isSameMonth} from "date-fns";
+import { format, getDay, isSameDay, isSameMonth } from "date-fns";
 import classNames from "classnames";
 
-export const DisplayMonthDays = ({ monthDays, today }) => {
-  const calendarMonthDays = [];
+export const DisplayMonthDays = ({
+  monthDays,
+  today,
+  setSelectedDay: setDay,
+}) => {
+  const [selectedDay, setSelectedDay] = useState(null);
 
-  monthDays.forEach((day, index) => {
-    const isSameActiveMonth = isSameMonth(day, today);
-    const gridColumnStart = getDay(day);
-    console.log(gridColumnStart)
+  const handleDayClick = (day) => {
+    if (selectedDay !== null && isSameDay(selectedDay, day)) {
+      setSelectedDay(null);
+      setDay(null);
+    } else {
+      setSelectedDay(day);
+      setDay(day);
+    }
+  };
 
-    calendarMonthDays.push(
-      <div
-        key={index}
-        className={classNames(
-          { "month-day": true },
-          { "same-month": isSameActiveMonth }
-        )}
-        style={{ gridColumnStart }}
-      >
-        <p>{format(day, "d")}</p>
-      </div>
-    );
-  });
+  return (
+    <div className="month-days-wrapper">
+      {monthDays.map((day, index) => {
+        const isSameActiveMonth = isSameMonth(day, today);
+        const gridColumnStart = getDay(day);
+        const isSelected = isSameDay(selectedDay, day);
 
-  return <div className="month-days-wrapper">{calendarMonthDays}</div>;
+        return (
+          <div
+            key={index}
+            className={classNames(
+              "month-day",
+              { "same-month": isSameActiveMonth },
+              { selected: isSelected }
+            )}
+            style={{ gridColumnStart }}
+            onClick={() => handleDayClick(day)}
+          >
+            <p>{format(day, "d")}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
